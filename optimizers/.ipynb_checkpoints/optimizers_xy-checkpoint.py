@@ -13,12 +13,14 @@ def gradient_descent_xy(initial_x, initial_y, max_iters, gamma):
     y = initial_y
     for n_iter in range(max_iters):
         # compute the gradients wrt to x and y
-        grad_x = y
-        grad_y = x
+        gradf_x = y
+        gradf_y = x
+        gradg_x = -y
+        gradg_y = -x
         obj = x*y # for this algorithm, the function is f(x,y)=xy
         # update x and y
-        x = x - gamma * grad_x 
-        y = y + gamma * grad_y
+        x = x - gamma * gradf_x 
+        y = y - gamma * gradg_y
         # store x and objective function value
         xs.append(x)
         ys.append(y)
@@ -40,13 +42,16 @@ def LCGD_xy(initial_x, initial_y, max_iters, gamma, eta):
     y = initial_y
     for n_iter in range(max_iters):
         # compute the gradients wrt to x and y
-        grad_x = y
-        grad_y = x
+        gradf_x = y
+        gradf_y = x
+        gradg_x = -y
+        gradg_y = -x
         df_dxdy = 1
+        dg_dxdy = -1
         obj = x*y # for this algorithm, the function is f(x,y)=xy
         # update x and y
-        x = x - gamma * grad_x - eta*df_dxdy*grad_y
-        y = y + gamma * grad_y + eta*df_dxdy*grad_x
+        x = x - gamma * gradf_x - eta*df_dxdy*gradf_y
+        y = y - gamma * gradg_y - eta*dg_dxdy*gradg_x
         # store x and objective function value
         xs.append(x)
         ys.append(y)
@@ -68,15 +73,18 @@ def ConOpt_xy(initial_x, initial_y, max_iters, gamma, eta):
     y = initial_y
     for n_iter in range(max_iters):
         # compute the gradients wrt to x and y
-        grad_x = y
-        grad_y = x
+        gradf_x = y
+        gradf_y = x
+        gradg_x = -y
+        gradg_y = -x
         df_dxdy = 1
+        dg_dxdy = -1
         df_dxdx = 0
-        df_dydy = 0
+        dg_dydy = 0
         obj = x*y # for this algorithm, the function is f(x,y)=xy
         # update x and y
-        x = x - gamma * grad_x - eta*df_dxdy*grad_y - eta*df_dxdx*grad_x
-        y = y + gamma * grad_y + eta*df_dxdy*grad_x + eta*df_dydy*grad_y
+        x = x - gamma * gradf_x - eta*df_dxdy*gradf_y - eta*df_dxdx*gradf_x
+        y = y - gamma * gradg_y - eta*dg_dxdy*gradg_x - eta*dg_dydy*gradg_y
         # store x and objective function value
         xs.append(x)
         ys.append(y)
@@ -98,15 +106,16 @@ def CGD_xy(initial_x, initial_y, max_iters, gamma, eta):
     y = initial_y
     for n_iter in range(max_iters):
         # compute the gradients wrt to x and y
-        grad_x = y
-        grad_y = x
+        gradf_x = y
+        gradf_y = x
+        gradg_x = -y
+        gradg_y = -x
         df_dxdy = 1
-        df_dxdx = 0
-        df_dydy = 0
+        dg_dxdy = -1
         obj = x*y # for this algorithm, the function is f(x,y)=xy
         # update x and y
-        x = x + 1/(1 + (eta*df_dxdy)**2)*(-gamma * grad_x - eta*df_dxdy*grad_y)
-        y = y + 1/(1 + (eta*df_dxdy)**2)*(+gamma * grad_y + eta*df_dxdy*grad_x)
+        x = x + 1/(1 + (eta*df_dxdy**2))*(- gamma*gradf_x - eta*df_dxdy*gradf_y)
+        y = y + 1/(1 + (eta*dg_dxdy**2))*(- gamma*gradg_y - eta*dg_dxdy*gradg_x)
         # store x and objective function value
         xs.append(x)
         ys.append(y)
