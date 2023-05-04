@@ -1,6 +1,6 @@
 import numpy as np
 
-def GD_alphaxy(initial_x, initial_y, alpha, max_iters, eta):
+def GDA_alphaxy(initial_x, initial_y, alpha, max_iters, eta):
     """Gradient descent algorithm for an optimization problem of the form minmax f(x,y)=alpha*xy.
     In this algorithm the updates are independent from each others and the only term present is 
     the gradient term, with learning rate eta"""
@@ -24,7 +24,7 @@ def GD_alphaxy(initial_x, initial_y, alpha, max_iters, eta):
         xs.append(x)
         ys.append(y)
         objectives.append(obj)
-        print("Gradient Descent (GD) ({bi}/{ti}): objective={l}".format(
+        print("Gradient Descent Ascent (GDA) ({bi}/{ti}): objective={l}".format(
               bi=n_iter, ti=max_iters - 1, l=obj))
     return objectives, xs, ys
 
@@ -115,5 +115,40 @@ def CGD_alphaxy(initial_x, initial_y, alpha, max_iters, eta):
         ys.append(y)
         objectives.append(obj)
         print("Competitive Gradient Descent (CGD) ({bi}/{ti}): objective={l}".format(
+              bi=n_iter, ti=max_iters - 1, l=obj))
+    return objectives, xs, ys
+
+def OGDA_alphaxy(initial_x, initial_y, alpha, max_iters, eta):
+    """Optimistic Gradient descent algorithm for an optimization problem of the form minmax f(x,y)=alpha*xy.
+    """
+    # Define parameters to store x and objective func. values
+    xs = [initial_x]
+    ys = [initial_y]
+    objectives = []
+    x_prec = 0
+    y_prec = 0
+    x = initial_x
+    y = initial_y
+    for n_iter in range(max_iters):
+        # compute the gradients wrt to x and y
+        gradf_x = alpha*y
+        gradf_y = alpha*x
+        gradg_x = -alpha*y
+        gradg_y = -alpha*x
+        gradf_x_prec = alpha*y_prec
+        gradg_y_prec = -alpha*x_prec
+        df_dxdy = alpha
+        dg_dxdy = -alpha
+        obj = x*y # for this algorithm, the function is f(x,y)=alpha*xy
+        # update x and y
+        x_prec = x
+        y_prec = y
+        x = x - eta*(gradf_x + (gradf_x - gradf_x_prec))
+        y = y - eta*(gradg_y + (gradg_y - gradg_y_prec))
+        # store x and objective function value
+        xs.append(x)
+        ys.append(y)
+        objectives.append(obj)
+        print("Optimistic Gradient Descent Ascent (OGDA) ({bi}/{ti}): objective={l}".format(
               bi=n_iter, ti=max_iters - 1, l=obj))
     return objectives, xs, ys
