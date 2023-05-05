@@ -1,116 +1,135 @@
-import numpy as np
+import math
 
-def gradient_descent_conv_conc(initial_x, initial_y, max_iters, gamma):
-    """Gradient descent algorithm for an optimization problem of the form minmax f(x,y)=x^2-y^2.
-    In this algorithm the updates are independent from each others and for the update in y
-    it is considered that maximizing f(x,y) is equal to minimizing -f(x,y), hence
-    the update has the plus sign."""
-    # Define parameters to store x and objective func. values
-    xs = [initial_x]
-    ys = [initial_y]
-    objectives = []
-    x = initial_x
-    y = initial_y
-    for n_iter in range(max_iters):
-        # compute the gradients wrt to x and y
-        grad_x = 2*x
-        grad_y = -2*y
-        obj = x**2-y**2
-        # update x and y
-        x = x - gamma * grad_x 
-        y = y + gamma * grad_y
-        # store x and objective function value
-        xs.append(x)
-        ys.append(y)
-        objectives.append(obj)
-        print("Gradient Descent({bi}/{ti}): objective={l}".format(
-              bi=n_iter, ti=max_iters - 1, l=obj))
-    return objectives, xs, ys
+def Gradx_f(alpha,x,y):
+    return 2*alpha*x
+
+def Grady_f(alpha,x,y):
+    return -2*alpha*y
+
+def Dxy_f(alpha,x,y):
+    return 0
+
+def Dyx_f(alpha,x,y):
+    return 0
+
+def Dxx_f(alpha,x,y):
+    return 2*alpha
+
+def Dyy_f(alpha,x,y):
+    return -2*alpha
+
+def Gradx_g(alpha,x,y):
+    return -2*alpha*x
+
+def Grady_g(alpha,x,y):
+    return 2*alpha*y
+
+def Dxy_g(alpha,x,y):
+    return 0
+
+def Dyx_g(alpha,x,y):
+    return 0
+
+def Dxx_g(alpha,x,y):
+    return -2*alpha
+
+def Dyy_g(alpha,x,y):
+    return 2*alpha
+
+def GDA_step(alpha,x,y,eta):
+    deltaX=-Gradx_f(alpha,x,y)
+    x+=eta*deltaX
+    deltaY=-Grady_g(alpha,x,y)
+    y+=eta*deltaY
+    return x,y
+
+#try eta inside or outside
+def LCGD_step(alpha,x,y,eta):
+    deltaX=-Gradx_f(alpha,x,y)-eta*Dxy_f(alpha,x,y)*Grady_f(alpha,x,y)
+    x+=eta*deltaX
+    deltaY=-Grady_g(alpha,x,y)-eta*Dyx_g(alpha,x,y)*Gradx_g(alpha,x,y)
+    y+=eta*deltaY
+    return x,y
+
+def SGA_step(alpha,x,y,eta,gamma):
+    deltaX=-Gradx_f(alpha,x,y)-gamma*Dxy_f(alpha,x,y)*Grady_f(alpha,x,y)
+    x+=eta*deltaX
+    deltaY=-Grady_g(alpha,x,y)-gamma*Dyx_g(alpha,x,y)*Gradx_g(alpha,x,y)
+    y+=eta*deltaY
+    return x,y
+
+def ConOpt_step(alpha,x,y,eta,gamma):
+    deltaX=-Gradx_f(alpha,x,y)-gamma*Dxy_f(alpha,x,y)*Grady_f(alpha,x,y)-gamma*Dxx_f(alpha,x,y)*Gradx_f(alpha,x,y)
+    x+=eta*deltaX
+    deltaY=-Grady_g(alpha,x,y)-gamma*Dyx_g(alpha,x,y)*Gradx_g(alpha,x,y)-gamma*Dyy_g(alpha,x,y)*Grady_g(alpha,x,y)
+    y+=eta*deltaY
+    return x,y
+
+def OGDA_step(alpha,x,y,eta):
+    deltaX=-Gradx_f(alpha,x,y)-eta*Dxy_f(alpha,x,y)*Grady_f(alpha,x,y)+eta*Dxx_f(alpha,x,y)*Gradx_f(alpha,x,y)
+    x+=eta*deltaX
+    deltaY=-Grady_g(alpha,x,y)-eta*Dyx_g(alpha,x,y)*Gradx_g(alpha,x,y)+eta*Dyy_g(alpha,x,y)*Grady_g(alpha,x,y)
+    y+=eta*deltaY
+    return x,y
+
+def CGD_step(alpha,x,y,eta):
+    deltaX=(1/(1+(eta**2)*Dxy_f(alpha,x,y)*Dyx_f(alpha,x,y)))*(-Gradx_f(alpha,x,y)-eta*Dxy_f(alpha,x,y)*Grady_f(alpha,x,y))
+    x+=eta*deltaX
+    deltaY=(1/(1+(eta**2)*Dyx_g(alpha,x,y)*Dxy_g(alpha,x,y)))*(-Grady_g(alpha,x,y)-eta*Dyx_g(alpha,x,y)*Gradx_g(alpha,x,y))
+    y+=eta*deltaY
+    return x,y
+
+def L1norm(x,y):
+    norm=abs(x)+abs(y)
+    log10norm=math.log10(norm)
+    return log10norm
+
+def run(alpha,eta,gamma,x,y,iter=100,optimizer='GDA'):
+    record=[]
+    for i in range(iter):
+        log10norm=L1norm(x,y)
+        if(i%25==0):
+            record.append(log10norm)
+        if(optimizer=='GDA'):
+            x,y=GDA_step(alpha,x,y,eta)
+        elif(optimizer=='LCGD'):
+            x,y=LCGD_step(alpha,x,y,eta)
+        elif(optimizer=='SGA'):
+            x,y=SGA_step(alpha,x,y,eta,gamma)
+        elif(optimizer=='ConOpt'):
+            x,y=ConOpt_step(alpha,x,y,eta,gamma)
+        elif(optimizer=='OGDA'):
+            x,y=OGDA_step(alpha,x,y,eta)
+        elif(optimizer=='CGD'):
+            x,y=CGD_step(alpha,x,y,eta)
+    record.append(L1norm(x,y))
+    return record
+
+"""Xinit=0.5
+Yinit=0.5
+alpha=1
+eta=0.2
+gamma=1
+
+x=Xinit
+y=Yinit
+#optimizers=['GDA','LCGD','SGA','ConOpt','OGDA','CGD']
+optimizers=['ConOpt']
+
+for optimizer in optimizers:
+    record=[]
+    record=run(x,y,optimizer=optimizer)
+    print(optimizer,':',record)
+
+#step=[i*25 for i in range(5)]
+#import matplotlib.pyplot as plt
+
+#plt.plot(step,record)
+#plt.show()"""
 
 
-def LCGD_conv_conc(initial_x, initial_y, max_iters, gamma, eta):
-    """LCGD algorithm for an optimization problem of the form minmax f(x,y)=x^2-y^2.
-    It is considered that maximizing f(x,y) is equal to minimizing -f(x,y), hence
-    the update has the plus sign."""
-    # Define parameters to store x and objective func. values
-    xs = [initial_x]
-    ys = [initial_y]
-    objectives = []
-    x = initial_x
-    y = initial_y
-    for n_iter in range(max_iters):
-        # compute the gradients wrt to x and y
-        grad_x = 2*x
-        grad_y = -2*y
-        df_dxdy = 0
-        obj = x**2-y**2 
-        # update x and y
-        x = x - gamma * grad_x - eta*df_dxdy*grad_y
-        y = y + gamma * grad_y + eta*df_dxdy*grad_x
-        # store x and objective function value
-        xs.append(x)
-        ys.append(y)
-        objectives.append(obj)
-        print("LCGD({bi}/{ti}): objective={l}".format(
-              bi=n_iter, ti=max_iters - 1, l=obj))
-    return objectives, xs, ys
 
 
-def ConOpt_conv_conc(initial_x, initial_y, max_iters, gamma, eta):
-    """ConOpt algorithm for an optimization problem of the form minmax f(x,y)=x^2-y^2.
-    It is considered that maximizing f(x,y) is equal to minimizing -f(x,y), hence
-    the update has the plus sign."""
-    # Define parameters to store x and objective func. values
-    xs = [initial_x]
-    ys = [initial_y]
-    objectives = []
-    x = initial_x
-    y = initial_y
-    for n_iter in range(max_iters):
-        # compute the gradients wrt to x and y
-        grad_x = 2*x
-        grad_y = -2*y
-        df_dxdy = 0
-        df_dxdx = 2
-        df_dydy = -2
-        obj = x**2-y**2 
-        # update x and y
-        x = x - gamma * grad_x - eta*df_dxdy*grad_y - eta*df_dxdx*grad_x
-        y = y + gamma * grad_y + eta*df_dxdy*grad_x + eta*df_dydy*grad_y
-        # store x and objective function value
-        xs.append(x)
-        ys.append(y)
-        objectives.append(obj)
-        print("ConOpt({bi}/{ti}): objective={l}".format(
-              bi=n_iter, ti=max_iters - 1, l=obj))
-    return objectives, xs, ys
+    
 
-
-def CGD_conv_conc(initial_x, initial_y, max_iters, gamma, eta):
-    """Conpetitive Gradient Descent algorithm for an optimization problem of the form minmax f(x,y)=x^2-y^2.
-    It is considered that maximizing f(x,y) is equal to minimizing -f(x,y), hence
-    the update has the plus sign."""
-    # Define parameters to store x and objective func. values
-    xs = [initial_x]
-    ys = [initial_y]
-    objectives = []
-    x = initial_x
-    y = initial_y
-    for n_iter in range(max_iters):
-        # compute the gradients wrt to x and y
-        grad_x = 2*x
-        grad_y = -2*y
-        df_dxdy = 0
-        df_dxdx = 2
-        df_dydy = -2
-        obj = x**2-y**2 
-        # update x and y
-        x = x + 1/(1 + (eta*df_dxdy)**2)*(-gamma * grad_x - eta*df_dxdy*grad_y)
-        y = y + 1/(1 + (eta*df_dxdy)**2)*(+gamma * grad_y + eta*df_dxdy*grad_x)
-        # store x and objective function value
-        xs.append(x)
-        ys.append(y)
-        objectives.append(obj)
-        print("Competitive Gradient Descent({bi}/{ti}): objective={l}".format(
-              bi=n_iter, ti=max_iters - 1, l=obj))
-    return objectives, xs, ys
+    
