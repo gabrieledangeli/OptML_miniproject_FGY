@@ -7,6 +7,13 @@ from skimage.transform import resize
 
 
 def initialize_weights(net):
+    '''
+    The initialization method used in the initialize_weights function is 
+    known as "normal initialization" or "Gaussian initialization."
+    It sets the initial weights of the neural network layers 
+    from a normal distribution with a mean of 0 and a standard deviation of 0.02.
+    This initialization is common in the majority of the papers related to GANs.
+    '''
     for m in net.modules():
         if isinstance(m, nn.Conv2d):
             m.weight.data.normal_(0, 0.02)
@@ -19,16 +26,29 @@ def initialize_weights(net):
             m.bias.data.zero_()
 
 def scale_images(images, new_shape):
-	images_list = list()
-	for image in images:
+    '''
+    The scale_images function resizes a list of images to a new 
+    shape using nearest neighbor interpolation.
+
+    images: A list of input images.
+    new_shape: The desired shape of the output images.
+    '''
+    images_list = list()
+    for image in images:
 		# resize with nearest neighbor interpolation
-		new_image = resize(image, new_shape, 0)
+        new_image = resize(image, new_shape, 0)
 		# store
-		images_list.append(new_image)
-	return np.asarray(images_list)
+        images_list.append(new_image)
+        return np.asarray(images_list)
 
 
 def generate_animation(path, epochs):
+    '''
+    Function that generates an animation (GIF) from a series of image files. 
+
+    path: The base path where the image files are located.
+    epochs: The number of epochs (or iterations) for which the image files exist.
+    '''
     images = []
     for epoch in range(epochs):
         img_name = path + '_epoch%03d' % (epoch+1) + '.png'
@@ -36,6 +56,10 @@ def generate_animation(path, epochs):
     imageio.mimsave(path + '_generate_animation.gif', images, fps=5)
 
 def loss_plot(G_losses, D_losses, path, model_name = ''):
+    '''
+    Function used to plot and save the losses of 
+    the generator and discriminator during training.
+    '''
     x = range(len(D_losses))
 
     plt.plot(x, G_losses, label='GeneratorLoss', color='r')
@@ -56,10 +80,14 @@ def loss_plot(G_losses, D_losses, path, model_name = ''):
     plt.savefig(path)
 
     plt.show()
-
+    
     plt.close()
 
+
 def is_plot(inception_scores):
+    '''
+    Function used to plot inception score during the training.
+    '''
     x = range(len(inception_scores))
 
     plt.plot(x, inception_scores, label='InceptionScore', )
@@ -77,13 +105,35 @@ def is_plot(inception_scores):
 
 
 def save_images(images, size, image_path):
+    '''
+    This function serves as a wrapper around the imsave function
+    
+    images: The generated images to be saved.
+    size: The desired size of the output image grid in terms of rows and columns.
+    image_path: The file path where the image will be saved.
+    '''
     return imsave(images, size, image_path)
 
 def imsave(images, size, path):
+    '''
+    images: The generated images to be saved.
+    size: The desired size of the output image grid in terms of rows and columns.
+    path: The file path where the image will be saved.
+    '''
     image = np.squeeze(merge(images, size))
+    # image = image.astype(np.uint8)  
     return imageio.imwrite(path, image)
 
 def merge(images, size):
+    '''
+    The function handles merging the images by creating an empty canvas (img) with 
+    the appropriate dimensions based on the size of the images and the desired grid size.
+    It then iterates over the images and places each image at the corresponding position on the canvas. 
+    The resulting merged image is returned.
+
+    images: The generated images to be merged and arranged in a grid.
+    size: The desired size of the output image grid in terms of rows and columns.
+    '''
     h, w = images.shape[1], images.shape[2]
     if (images.shape[3] in (3,4)):
         c = images.shape[3]
