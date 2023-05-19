@@ -28,23 +28,20 @@ def scale_images(images, new_shape):
 	return np.asarray(images_list)
 
 
-def generate_animation(path, num):
+def generate_animation(path, epochs):
     images = []
-    for e in range(num):
-        img_name = path + '_epoch%03d' % (e+1) + '.png'
+    for epoch in range(epochs):
+        img_name = path + '_epoch%03d' % (epoch+1) + '.png'
         images.append(imageio.imread(img_name))
     imageio.mimsave(path + '_generate_animation.gif', images, fps=5)
 
-def loss_plot(hist, path, model_name = ''):
-    x = range(len(hist['D_loss']))
+def loss_plot(G_losses, D_losses, path, model_name = ''):
+    x = range(len(D_losses))
 
-    y1 = hist['D_loss']
-    y2 = hist['G_loss']
+    plt.plot(x, G_losses, label='GeneratorLoss', color='r')
+    plt.plot(x, D_losses, label='DiscriminatorLoss', color='b')
 
-    plt.plot(x, y1, label='D_loss')
-    plt.plot(x, y2, label='G_loss')
-
-    plt.xlabel('Iter')
+    plt.xlabel('Iteration')
     plt.ylabel('Loss')
 
     plt.legend(loc=4)
@@ -57,6 +54,24 @@ def loss_plot(hist, path, model_name = ''):
     path = os.path.join(path, model_name + '_loss.png')
 
     plt.savefig(path)
+
+    plt.show()
+
+    plt.close()
+
+def is_plot(inception_scores):
+    x = range(len(inception_scores))
+
+    plt.plot(x, inception_scores, label='InceptionScore', )
+
+    plt.xlabel('Iteration')
+    plt.ylabel('Inception Score')
+
+    plt.legend(loc=4)
+    plt.grid(True)
+    plt.tight_layout()
+
+    plt.show()
 
     plt.close()
 
