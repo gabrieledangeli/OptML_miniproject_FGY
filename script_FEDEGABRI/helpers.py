@@ -3,6 +3,7 @@ import torch.nn as nn
 import matplotlib.pyplot as plt
 import imageio
 import os
+import torch
 from skimage.transform import resize
 
 
@@ -152,3 +153,29 @@ def merge(images, size):
         return img
     else:
         raise ValueError('in merge(images,size) images parameter ''must have dimensions: HxW or HxWx3 or HxWx4')
+
+#def IS(images):
+    """
+    input has shape Nimage N x 3 x H x W
+    """
+    """
+    inception = InceptionScore(normalize=True)
+    inception.update(images)
+    IS=inception.compute()
+    return IS
+    """
+
+#def FID(imagesR,imagesG):
+    """
+    imagesR: minibatch of real image of shape N x 3 x H x W
+    imagesG: minibatch of generated image of shape N x 3 x H x W
+    """
+    """
+    fid = FrechetInceptionDistance(feature=64,normalize=True)
+    fid.update(imagesR, real=True)
+    fid.update(imagesG, real=False)
+    FID=fid.compute()
+    return FID
+    """
+
+
