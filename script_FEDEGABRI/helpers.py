@@ -85,20 +85,27 @@ def loss_plot(G_losses, D_losses, path, model_name = ''):
     plt.close()
 
 
-def is_plot(inception_scores):
+def score_plot(path, model_name, score_name, scores):
     '''
     Function used to plot inception score during the training.
     '''
-    x = range(len(inception_scores))
+    x = range(len(scores))
 
-    plt.plot(x, inception_scores, label='InceptionScore', )
+    plt.plot(x, scores, label=score_name, )
 
-    plt.xlabel('Iteration')
-    plt.ylabel('Inception Score')
+    plt.xlabel('Epoch')
+    plt.ylabel(score_name)
 
     plt.legend(loc=4)
     plt.grid(True)
     plt.tight_layout()
+
+    if not os.path.exists(path):
+        os.makedirs(path)
+    path = os.path.join(path, model_name + '_' + score_name + '.png')
+
+    plt.savefig(path)
+
 
     plt.show()
 
