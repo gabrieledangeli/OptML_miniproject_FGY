@@ -14,23 +14,22 @@ We worked with the libraries and their relative versions that you can find in th
 Our code it is also build to run using GPU if available. Please notice that we take the WGAN implementation from [this repository](), and we used the library [here](https://github.com/devzhk/Implicit-Competitive-Regularization) to train our NNs with the Adaptive Competitive Gradient Descent (ACGD) algorithm.
 
 #### Description of folders and files  
-Here you can find a detailed description of what each file in this repository contains.
-|  
-|___ Part 1  
-|        |___ `plots.py`: python file with the functions required for plotting the trajectories.   
-|        |___ `main.ipynb`: notebook file that once runned call all the functions and it produces   
-|        |                  the trajectories of the optimization problems we dicussed.  
-|        |___  optimizers:  
-|                    |___ `optimizers_conc_conv.py`: python file for the concave-convex problem.   
-|                    |___ `optimizers_conv_conc.py`: python file for the convex-concave problem.  
-|                    |___ `optimizers_xy.py`: python file for the bilinear problem.  
-|___ On Mnist  
-         |___ `helpers.py`: python file for ausiliary functions needed to train the GANs and to
-         |                  all the images.  
-         |___ `WGAN.ipynb`: notebook file that once runned trains all the WGANs with the different
-         |                  optimizers we discussed in the project.  
-         |___ results: folder with the results of our trainings (generated imagese, GIF, scores).  
-         |___ models: folder with the models of our trainings.   
+Here you can find a detailed description of what each file in this repository contains. 
+--- PART1  
+        |--- `plots.py`: python file with the functions required for plotting the trajectories.   
+        |--- `main.ipynb`: notebook file that once runned call all the functions and it produces   
+                           the trajectories of the optimization problems we dicussed.  
+        |---  optimizers:  
+                    |--- `optimizers_conc_conv.py`: python file for the concave-convex problem.   
+                    |--- `optimizers_conv_conc.py`: python file for the convex-concave problem.  
+                    |--- `optimizers_xy.py`: python file for the bilinear problem.  
+--- On Mnist  
+        |--- `helpers.py`: python file for ausiliary functions needed to train the GANs and to
+                           all the images.  
+        |--- `WGAN.ipynb`: notebook file that once runned trains all the WGANs with the different
+                           optimizers we discussed in the project.  
+        |--- results: folder with the results of our trainings (generated imagese, GIF, scores).  
+        |--- models: folder with the models of our trainings.   
 
 ### References  
 [1] Implicit competitive regularization in GANs, *Florian Schaefer, Hongkai Zheng, Animashree Anandkumar*. Proceedings of the 37th International Conference on Machine Learning, 2020.  
