@@ -31,4 +31,4 @@ optimizers we discussed in the project.
 
 ### References  
 [1] [Implicit competitive regularization in GANs, *Florian Schaefer, Hongkai Zheng, Animashree Anandkumar*. Proceedings of the 37th International Conference on Machine Learning, 2020.](http://proceedings.mlr.press/v119/schaefer20a.html)  
-[2] [Competitive Gradient Descent, *Florian Schäfer, Anima Anandkumar*. NeurIPS, 2019.]((https://arxiv.org/abs/1905.12103) )
+[2] [Competitive Gradient Descent, *Florian Schäfer, Anima Anandkumar*. NeurIPS, 2019.](https://arxiv.org/abs/1905.12103)
