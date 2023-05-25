@@ -14,10 +14,10 @@ We worked with the libraries and their relative versions that you can find in th
 Our code it is also build to run using GPU if available. Please notice that we take the WGAN implementation from [this repository](), and we used the library [here](https://github.com/devzhk/Implicit-Competitive-Regularization) to train our NNs with the Adaptive Competitive Gradient Descent (ACGD) algorithm.
 
 #### Description of folders and files  
-Here you can find a detailed description of what each file in this repository contains. 
+Here you can find a detailed description of what each file in this repository contains.  
 --- PART1  
-        |--- `plots.py`: python file with the functions required for plotting the trajectories.   
-        |--- `main.ipynb`: notebook file that once runned call all the functions and it produces   
+\\       |--- `plots.py`: python file with the functions required for plotting the trajectories.   
+\\       |--- `main.ipynb`: notebook file that once runned call all the functions and it produces   
                            the trajectories of the optimization problems we dicussed.  
         |---  optimizers:  
                     |--- `optimizers_conc_conv.py`: python file for the concave-convex problem.   
