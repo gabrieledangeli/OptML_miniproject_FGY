@@ -15,6 +15,7 @@ def initialize_weights(net):
     from a normal distribution with a mean of 0 and a standard deviation of 0.02.
     This initialization is common in the majority of the papers related to GANs.
     '''
+
     for m in net.modules():
         if isinstance(m, nn.Conv2d):
             m.weight.data.normal_(0, 0.02)
@@ -66,7 +67,7 @@ def loss_plot(G_losses, D_losses, path, model_name = ''):
     plt.plot(x, G_losses, label='GeneratorLoss', color='r')
     plt.plot(x, D_losses, label='DiscriminatorLoss', color='b')
 
-    plt.xlabel('Iteration')
+    plt.xlabel('Epoch')
     plt.ylabel('Loss')
 
     plt.legend(loc=4)
@@ -79,9 +80,7 @@ def loss_plot(G_losses, D_losses, path, model_name = ''):
     path = os.path.join(path, model_name + '_loss.png')
 
     plt.savefig(path)
-
-    plt.show()
-    
+    plt.show()    
     plt.close()
 
 
@@ -128,7 +127,6 @@ def score_plot(path, model_name, score_name, scores):
     path = os.path.join(path, model_name + '_' + score_name + '.png')
 
     plt.savefig(path)
-
 
     plt.show()
 
@@ -183,6 +181,27 @@ def merge(images, size):
         return img
     else:
         raise ValueError('in merge(images,size) images parameter ''must have dimensions: HxW or HxWx3 or HxWx4')
+
+def save_scores(score, save_dir, dataset, gan_type, IS=False, FID=False):
+    if not IS and not FID:
+        raise ValueError('Cannot save different scores except IS score and FID score.')
+    if IS:
+        path = os.path.join(save_dir, dataset, gan_type, 'Inception_Scores')
+    elif FID:
+        path = os.path.join(save_dir, dataset, gan_type, 'FID_Scores')
+
+    return np.save(path, score)
+
+
+def save_loss(loss, save_dir, dataset, gan_type, Generator=False, Discriminator=False):
+    path = os.path.join(save_dir, dataset, gan_type)
+    
+    if Generator:
+        path = os.path.join(path, 'Generator_')
+    if Discriminator:
+        path = os.path.join(path, 'Discriminator_')
+    
+    return np.save(path+'loss', loss)
 
 #def IS(images):
     """
