@@ -7,7 +7,7 @@ We then reinforce this conjecture by analysing different training procedures for
 Our team is composed by:  
 * D'Angeli Gabriele: [@gabrieledangeli](https://github.com/gabrieledangeli)    
 * Di Gennaro Federico: [@FedericoDiGennaro](https://github.com/FedericoDiGennaro)    
-* Yuzhu Tian: [@MileyTian](https://github.com/MileyTian)   
+* Tian Yuzhu: [@MileyTian](https://github.com/MileyTian)   
 
 #### Reproducibility of the code
 We worked with the libraries and their relative versions that you can find in the file `requirements.txt`.   
@@ -15,14 +15,14 @@ Our code it is also build to run using GPU if available. Please notice that we t
 
 #### Description of folders and files  
 Here you can find a detailed description of what each file in this repository contains.  
-PART 1  
+**PART 1**  
 |--- `plots.py`: python file with the functions required for plotting the trajectories.   
 |--- `main.ipynb`: notebook file that once runned call all the functions and it produces the trajectories of the optimization problems we discussed in this project.  
-In PART 1 folder, there is the optimizers folder, that contains the following files:   
+In PART 1 folder, there is the **optimizers** folder, that contains the following files:   
 |--- `optimizers_conc_conv.py`: python file for the concave-convex problem.   
 |--- `optimizers_conv_conc.py`: python file for the convex-concave problem.  
 |--- `optimizers_xy.py`: python file for the bilinear problem.  
-On Mnist  
+**On Mnist ** 
 |--- `helpers.py`: python file for ausiliary functions needed to train the GANs and to all the images.  
 |--- `WGAN.ipynb`: notebook file that once runned trains all the WGANs with the different
 optimizers we discussed in the project.  
