@@ -6,12 +6,8 @@ We then reinforce this conjecture by analysing different training procedures for
 <p align="center">
   <figure>
     <img src="https://github.com/gabrieledangeli/OptML_miniproject_FGY/blob/main/PART%202/results/mnist/WGAN/WGAN_generate_animation.gif" alt="First GIF" width="300" height="200"/>
-    <figcaption>WGAN with ADAM.</figcaption>
-  </figure>
-  &nbsp;
-  <figure>
     <img src="https://github.com/gabrieledangeli/OptML_miniproject_FGY/blob/main/PART%202/results/mnist/WGAN_ACGD/WGAN_ACGD_generate_animation.gif" alt="Second GIF" width="300" height="200"/>
-    <figcaption>WGAN with CGD.</figcaption>
+    <figcaption>WGAN with ADAM (left) vs WGAN with CGD (right)</figcaption>
   </figure>
 </p>
 
