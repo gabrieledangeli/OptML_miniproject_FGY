@@ -4,11 +4,16 @@ In this project we explored how the optimization of a Generative Adversarial Net
 We then reinforce this conjecture by analysing different training procedures for a GAN's optimization problem on another dataset, namely the MNIST dataset.
 
 <p align="center">
-  <img src="https://github.com/gabrieledangeli/OptML_miniproject_FGY/blob/main/PART%202/results/mnist/WGAN_ACGD/WGAN_ACGD_generate_animation.gif" alt="First GIF" width="400" height="300"/>
-  <img src="https://github.com/gabrieledangeli/OptML_miniproject_FGY/blob/main/PART%202/results/mnist/WGAN_ACGD/WGAN_ACGD_generate_animation.gif" alt="Second GIF" width="400" height="300"/>
+  <figure>
+    <img src="https://github.com/gabrieledangeli/OptML_miniproject_FGY/blob/main/PART%202/results/mnist/WGAN/WGAN_generate_animation.gif" alt="First GIF" width="300" height="200"/>
+    <figcaption>WGAN with ADAM.</figcaption>
+  </figure>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <figure>
+    <img src="https://github.com/gabrieledangeli/OptML_miniproject_FGY/blob/main/PART%202/results/mnist/WGAN_ACGD/WGAN_ACGD_generate_animation.gif" alt="Second GIF" width="300" height="200"/>
+    <figcaption>WGAN with Competitive Gradient Descent.</figcaption>
+  </figure>
 </p>
-
-![](https://github.com/gabrieledangeli/OptML_miniproject_FGY/blob/main/PART%202/results/mnist/WGAN_ACGD/WGAN_ACGD_generate_animation.gif)
 
 ## Team  
 Our team is composed by:  
