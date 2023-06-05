@@ -3,6 +3,7 @@ In this repository you can find our code for the mini-project of the course [CS-
 In this project we explored how the optimization of a Generative Adversarial Network works; in particular, we focused on a new approach based on the Competitive Gradient Descent algorithm introduced in [1]. This optimizer was shown to have really good experimental results on CIFAR10 dataset [2]; this suggests that taking in some way in account the update of the opponent in GANs (i.e. Generator for Discriminator and vice versa) outperform the usual training with independent updates.  
 We then reinforce this conjecture by analysing different training procedures for a GAN's optimization problem on another dataset, namely the MNIST dataset.
 
+![](https://github.com/gabrieledangeli/OptML_miniproject_FGY/blob/main/PART%202/results/mnist/WGAN_ACGD/WGAN_ACGD_generate_animation.gif)
 
 ## Team  
 Our team is composed by:  
