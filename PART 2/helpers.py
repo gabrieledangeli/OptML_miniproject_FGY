@@ -37,9 +37,9 @@ def scale_images(images, new_shape):
     '''
     images_list = list()
     for image in images:
-		# resize with nearest neighbor interpolation
+    # resize with nearest neighbor interpolation
         new_image = resize(image, new_shape, 0)
-		# store
+    # store
         images_list.append(new_image)
         return np.asarray(images_list)
 
@@ -56,6 +56,7 @@ def generate_animation(path, epochs):
         img_name = path + '_epoch%03d' % (epoch+1) + '.png'
         images.append(imageio.imread(img_name))
     imageio.mimsave(path + '_generate_animation.gif', images, fps=5)
+    
 
 def loss_plot(G_losses, D_losses, path, model_name = ''):
     '''
@@ -85,6 +86,10 @@ def loss_plot(G_losses, D_losses, path, model_name = ''):
 
 
 def loss_plot_ACGD(losses, path, model_name=''):
+    """
+    In summary, the loss_plot_ACGD function plots the loss values during ACGD training, 
+    saves the plot in the path provided as an image file, and displays the plot too.
+    """
     x = range(len(losses))
 
     plt.plot(x, losses, label='Loss')
@@ -106,10 +111,11 @@ def loss_plot_ACGD(losses, path, model_name=''):
     plt.close()
 
 
-
 def score_plot(path, model_name, score_name, scores):
     '''
-    Function used to plot inception score during the training.
+    The score_plot function plots a score (FID or Inception) during training, 
+    saves the plot as an image file, and displays the plot.
+    It has to be also specified which is the WGAN type we are working with.
     '''
     x = range(len(scores))
 
@@ -143,6 +149,7 @@ def save_images(images, size, image_path):
     '''
     return imsave(images, size, image_path)
 
+
 def imsave(images, size, path):
     '''
     images: The generated images to be saved.
@@ -152,6 +159,7 @@ def imsave(images, size, path):
     image = np.squeeze(merge(images, size))
     # image = image.astype(np.uint8)  
     return imageio.imwrite(path, image)
+
 
 def merge(images, size):
     '''
@@ -182,7 +190,13 @@ def merge(images, size):
     else:
         raise ValueError('in merge(images,size) images parameter ''must have dimensions: HxW or HxWx3 or HxWx4')
 
+        
 def save_scores(score, save_dir, dataset, gan_type, IS=False, FID=False):
+    """
+    Function for saving the Inceptions and the Fid scores in the save_dir.
+    gan_type is the type of optimization you chose from WGAN with Adam, WGAN-GP with Adam and WGAN with ACGD.
+    score is the score (FID or Inception).
+    """
     if not IS and not FID:
         raise ValueError('Cannot save different scores except IS score and FID score.')
     if IS:
@@ -194,6 +208,11 @@ def save_scores(score, save_dir, dataset, gan_type, IS=False, FID=False):
 
 
 def save_loss(loss, save_dir, dataset, gan_type, Generator=False, Discriminator=False):
+    """
+    Function for saving the loss in the save_dir.
+    gan_type is the type of optimization you chose from WGAN with Adam, WGAN-GP with Adam and WGAN with ACGD.
+    Dataset is MNIST or CIFAR10.
+    """
     path = os.path.join(save_dir, dataset, gan_type)
     
     if Generator:
@@ -202,6 +221,7 @@ def save_loss(loss, save_dir, dataset, gan_type, Generator=False, Discriminator=
         path = os.path.join(path, 'Discriminator_')
     
     return np.save(path+'loss', loss)
+
 
 #def IS(images):
     """

@@ -1,9 +1,11 @@
 import numpy as np
 
 def GDA_alphaxy(initial_x, initial_y, alpha, max_iters, eta):
-    """Gradient descent algorithm for an optimization problem of the form minmax f(x,y)=alpha*xy.
+    """
+    Gradient Descent Algorithm for an optimization problem of the form minmax f(x,y)=alpha*xy.
     In this algorithm the updates are independent from each others and the only term present is 
-    the gradient term, with learning rate eta"""
+    the gradient term, with learning rate eta
+    """
     # Define parameters to store x and objective func. values
     xs = [initial_x]
     ys = [initial_y]
@@ -29,6 +31,10 @@ def GDA_alphaxy(initial_x, initial_y, alpha, max_iters, eta):
     return objectives, xs, ys
 
 def LCGD_alphaxy(initial_x, initial_y, alpha, max_iters, eta):
+    """
+    LCGD algorithm for an optimization problem of the form minmax f(x,y)=alpha*xy.
+    eta is the learning rate.
+    """
     xs = [initial_x]
     ys = [initial_y]
     objectives = [initial_x*initial_y]
@@ -57,10 +63,12 @@ def LCGD_alphaxy(initial_x, initial_y, alpha, max_iters, eta):
     return objectives, xs, ys 
 
 def SGA_alphaxy(initial_x, initial_y, alpha, max_iters, eta, gamma):
-    """SG algorithm for an optimization problem of the form minmax f(x,y)=alpha*xy.
+    """
+    SG Algorithm for an optimization problem of the form minmax f(x,y)=alpha*xy.
     In this algorithm it is present the gradient term and the competitive term. 
     eta is the hyper-parameter of the gradient term and gamma is the hyper-parameter of the comeptitive term.
-    Please notice that SG with gamma equal to eta leads into LCGD."""
+    Please notice that SG with gamma equal to eta leads into LCGD.
+    """
         # Define parameters to store x and objective func. values
     xs = [initial_x]
     ys = [initial_y]
@@ -89,9 +97,11 @@ def SGA_alphaxy(initial_x, initial_y, alpha, max_iters, eta, gamma):
 
 
 def CGD_alphaxy(initial_x, initial_y, alpha, max_iters, eta):
-    """Conpetitive Gradient Descent algorithm for an optimization problem of the form minmax f(x,y)=alpha*xy.
+    """
+    Competitive Gradient Descent algorithm for an optimization problem of the form minmax f(x,y)=alpha*xy.
     The in this algorithm are the equilibrium term that is inverted and multiplied by the sum of the gradient
-    term with the competitive term. eta is the only hyperparameter involved."""
+    term with the competitive term. eta is the only hyperparameter involved.
+    """
     # Define parameters to store x and objective func. values
     xs = [initial_x]
     ys = [initial_y]
@@ -119,7 +129,8 @@ def CGD_alphaxy(initial_x, initial_y, alpha, max_iters, eta):
     return objectives, xs, ys
 
 def OGDA_alphaxy(initial_x, initial_y, alpha, max_iters, eta):
-    """Optimistic Gradient descent algorithm for an optimization problem of the form minmax f(x,y)=alpha*xy.
+    """
+    Optimistic Gradient Descent Algorithm for an optimization problem of the form minmax f(x,y)=alpha*xy.
     """
     # Define parameters to store x and objective func. values
     xs = [initial_x]

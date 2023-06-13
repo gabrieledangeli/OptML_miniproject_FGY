@@ -74,7 +74,7 @@ def Dyy_g(alpha,x,y):
 
 def GDA_step(alpha,x,y,eta):
     """
-    GDA step with parameters alpha and eta.
+    GDA step with parameters alpha(in the loss functions) and eta(learning rate).
     """
     #update of x
     deltaX=-Gradx_f(alpha,x,y)
@@ -87,7 +87,8 @@ def GDA_step(alpha,x,y,eta):
 #try eta inside or outside
 def LCGD_step(alpha,x,y,eta):
     """
-    LCGD step with parameter alpha.
+    LCGD step with parameter alpha(in the loss functions).
+    eta is the learning rate.
     """
     #update of x
     deltaX=-Gradx_f(alpha,x,y)-eta*Dxy_f(alpha,x,y)*Grady_f(alpha,x,y)
@@ -99,7 +100,8 @@ def LCGD_step(alpha,x,y,eta):
 
 def SGA_step(alpha,x,y,eta,gamma):
     """
-    SGA step with parameters alpha and gamma.
+    SGA step with parameters alpha(in the loss functions) 
+    eta is the hyper-parameter of the gradient term and gamma is the hyper-parameter of the comeptitive term.
     """
     #update of x
     deltaX=-Gradx_f(alpha,x,y)-gamma*Dxy_f(alpha,x,y)*Grady_f(alpha,x,y)
@@ -111,7 +113,8 @@ def SGA_step(alpha,x,y,eta,gamma):
 
 def ConOpt_step(alpha,x,y,eta,gamma):
     """
-    ConOpt step with parameters alpha and gamma.
+    ConOpt step with parameters alpha(in the loss functions).
+    eta is the hyper-parameter of the gradient term and gamma is the hyper-parameter of the comeptitive term.
     """
     #update of x
     deltaX=-Gradx_f(alpha,x,y)-gamma*Dxy_f(alpha,x,y)*Grady_f(alpha,x,y)-gamma*Dxx_f(alpha,x,y)*Gradx_f(alpha,x,y)
@@ -123,7 +126,8 @@ def ConOpt_step(alpha,x,y,eta,gamma):
 
 def OGDA_step(alpha,x,y,eta):
     """
-    OGDA step with parameter alpha.
+    OGDA step with parameter alpha(in the loss functions).
+    eta is the learning rate
     """
     #update of x
     deltaX=-Gradx_f(alpha,x,y)-eta*Dxy_f(alpha,x,y)*Grady_f(alpha,x,y)+eta*Dxx_f(alpha,x,y)*Gradx_f(alpha,x,y)
@@ -135,7 +139,7 @@ def OGDA_step(alpha,x,y,eta):
 
 def CGD_step(alpha,x,y,eta):
     """
-    CGD step with parameter alpha.
+    CGD step with parameter alpha(parameter of the loss functions).
     """
     #update of x
     deltaX=(1/(1+(eta**2)*Dxy_f(alpha,x,y)*Dyx_f(alpha,x,y)))*(-Gradx_f(alpha,x,y)-eta*Dxy_f(alpha,x,y)*Grady_f(alpha,x,y))
@@ -147,7 +151,7 @@ def CGD_step(alpha,x,y,eta):
 
 def L1norm(x,y):
     """
-    This function calculate the L1 norm of the vector with origin in (0,0) pointing in (x,y)
+    This function calculate the L1 norm of the vector with origin in (0,0) pointing in (x,y) and returns the log10 of it
     """
     norm=abs(x)+abs(y)
     log10norm=math.log10(norm)
