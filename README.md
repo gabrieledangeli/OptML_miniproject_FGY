@@ -1,4 +1,4 @@
-# On GANs optimization: Competitive Gradient Descent  
+# On WGANs optimization: Competitive Gradient Descent  
 In this repository you can find our code for the mini-project of the course [CS-439 - Optimization for Machine Learning](https://edu.epfl.ch/coursebook/en/optimization-for-machine-learning-CS-439).  
 In this project we explored how the optimization of a Generative Adversarial Network works; in particular, we focused on a new approach based on the Competitive Gradient Descent algorithm introduced in [1]. This optimizer was shown to have really good experimental results on CIFAR10 dataset [2]; this suggests that taking in some way in account the update of the opponent in GANs (i.e. Generator for Discriminator and vice versa) outperform the usual training with independent updates.  
 We then reinforce this conjecture by analysing different training procedures for a GAN's optimization problem on another dataset, namely the MNIST dataset.
@@ -41,6 +41,7 @@ optimizers we discussed in the project.
 ## References
 
 #### Code:
+[1] [Code for WGANs] (https://github.com/znxlwm/pytorch-generative-model-collections)
 
 #### Main theoretical references: 
 [1] [Implicit competitive regularization in GANs, *Florian Schaefer, Hongkai Zheng, Animashree Anandkumar*. Proceedings of the 37th International Conference on Machine Learning, 2020.](http://proceedings.mlr.press/v119/schaefer20a.html)  
