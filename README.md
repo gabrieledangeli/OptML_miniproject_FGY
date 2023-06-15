@@ -41,7 +41,7 @@ optimizers we discussed in the project.
 ## References
 
 #### Code:
-[1] [Code for WGANs] (https://github.com/znxlwm/pytorch-generative-model-collections)
+[1] [Code for WGANs](https://github.com/znxlwm/pytorch-generative-model-collections)
 
 #### Main theoretical references: 
 [1] [Implicit competitive regularization in GANs, *Florian Schaefer, Hongkai Zheng, Animashree Anandkumar*. Proceedings of the 37th International Conference on Machine Learning, 2020.](http://proceedings.mlr.press/v119/schaefer20a.html)  
