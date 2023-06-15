@@ -223,28 +223,4 @@ def save_loss(loss, save_dir, dataset, gan_type, Generator=False, Discriminator=
     return np.save(path+'loss', loss)
 
 
-#def IS(images):
-    """
-    input has shape Nimage N x 3 x H x W
-    """
-    """
-    inception = InceptionScore(normalize=True)
-    inception.update(images)
-    IS=inception.compute()
-    return IS
-    """
-
-#def FID(imagesR,imagesG):
-    """
-    imagesR: minibatch of real image of shape N x 3 x H x W
-    imagesG: minibatch of generated image of shape N x 3 x H x W
-    """
-    """
-    fid = FrechetInceptionDistance(feature=64,normalize=True)
-    fid.update(imagesR, real=True)
-    fid.update(imagesG, real=False)
-    FID=fid.compute()
-    return FID
-    """
-
 
